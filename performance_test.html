@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>WordcloudJS</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="main.css" rel="stylesheet" type="text/css"/>
+        <link href="WordcloudJS/Colorpicker/css/colorpicker.css" rel="stylesheet" type="text/css"/>
+        <link href="WordcloudJS/Colorpicker/css/layout.css" rel="stylesheet" type="text/css"/>
+
+        <script src="WordcloudJS/webfontloader.js" type="text/javascript"></script>
+        <script src="WordcloudJS/WordcloudJS.js" type="text/javascript"></script>
+
+        <script src="jquery-3.1.1.min.js" type="text/javascript"></script>
+        <script src="WordcloudJS/Colorpicker/js/colorpicker.js" type="text/javascript"></script>
+        <script src="performance_test.js" type="text/javascript"></script>
+
+    </head>
+    <body>
+        <div id="wordcloudLoader_back"></div>
+        <div id="wordcloudLoader">
+            <div id="wordcloudLoader_prog"></div>
+            <div id="wordcloudLoader_text">100</div>
+        </div>
+        <div id="leiste0"></div>
+        <div id="leiste1"></div>
+        <div id="leiste2"></div>
+        <div id="leiste3"></div>
+        <div id="titlebar">
+            <button id="btn_back">Zurück</button>
+            <div id="title">WordcloudJS</div>
+        </div>
+        <div id="scene">
+            <div id='svgWrapper'></div>
+            <div id='timer'></div>            
+            <button id='download'>Download</button>            
+        </div>
+        <div id="page">
+            <table id="toolbar">
+                <tr>
+                    <td>
+                        <table id="tools">
+                            <tr>
+                                <td class="tools_title">Schriftart:</td>
+                                <td class="tools_edit">
+                                    <div class="select">
+                                        <select id='input_fontfam'></select>
+                                        <div class="select_arrow">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="tools_value" id="value_fontfam">WordcloudJS</td>
+                            </tr>
+                            <tr>
+                                <td class="tools_title">Schriftfarbe:</td>
+                                <td class="tools_edit">
+                                    <div class='divcolorpicker' id="input_color1"></div>
+                                    <div class='divcolorpicker' id="input_color2"></div>
+                                    <div class='divcolorpicker' id="input_color3"></div>
+                                    <div class='divcolorpicker' id="input_color4"></div>
+                                </td>
+                                <td class="tools_value" id="value_fontcol"></td>
+                            </tr>
+                            <tr>
+                                <td class="tools_title">Schriftrichtung:</td>
+                                <td class="tools_edit">
+                                    <input type="range" min="0" max="3" value="0" id="input_dir"/>
+                                </td>
+                                <td class="tools_value" id="value_dir"></td>
+                            </tr>
+                            <tr>
+                                <td class="tools_title">Path:</td>
+                                <td class="tools_edit">
+                                    <input type="range" min="0" max="1" value="0" id="input_path"/>
+                                </td>
+                                <td class="tools_value" id="value_path"></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <div id="textbox">
+                            <textarea id="textedit" cols="60" rows="16"></textarea>
+                            <button id="btn_start">Generieren</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,521 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 01.12.2017, 22:09:51
+    Author     : AlexPC
+*/
+
+/***************************/
+
+#site_bar{
+    padding: 10px;
+}
+
+.site_block{
+    display: inline-block;
+    background-color: #ddd;
+    border-radius: 3px;
+    color: #fff;
+    width: 360px;
+    margin: 10px;
+    vertical-align: top;
+}
+
+.site_info{
+    font-size: 14px;
+    color: #333;
+    text-justify: auto;
+    text-align: left;
+    height: 50px;
+    padding: 20px;
+}
+
+.site_title{
+    border-radius: 3px 3px 0px 0px;
+    background-color: #333;
+    font-size: 18px;
+    text-align: left;
+    padding: 10px;
+    padding-left: 20px;
+}
+
+.site_btn{
+    margin-bottom: 10px;
+    margin-right: 10px;
+    float: right;
+    bottom: 0px;
+}
+
+
+/***************************/
+
+#btn_back{
+    position: absolute;
+    top: 16px;
+    left: 10px;
+    font-size: 14px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: 2px solid #fff;
+    background-color: black;
+}
+#btn_back:hover{
+    background-color: #333;
+    border: 2px solid #666;
+}
+
+#timer{
+    height: 25px;
+    background-color: #222;
+    position: absolute;
+    display: table-cell;
+    left: 10px;
+    top: 450px;
+    border-radius: 3px;
+    font-size: 14px;
+    color: #fff;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    vertical-align: middle;
+    font-family: Arial;
+}
+
+#download{
+    position: absolute;
+    display: table-cell;
+    left: 10px;
+    top: 390px;
+}
+
+#wordcloudLoader_text{
+    position: absolute;
+    display: inline-block;
+    height: 40px;
+    width: 250px;
+    top: calc(50% - 10px);
+    left: calc(50% - 125px);
+    z-index: 9999;
+    vertical-align: middle;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+}
+#wordcloudLoader_prog{
+    position: absolute;
+    display: inline-block;
+    height: 40px;
+    width: 0px;
+    background-color: #5cb85c;
+    top: calc(50% - 20px);
+    left: calc(50% - 125px);
+    z-index: 9999;
+    border-radius: 3px;
+}
+#wordcloudLoader_back{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left:0;
+    background-color: #000;
+    z-index: 99;
+    opacity: 0.8;
+}
+#wordcloudLoader{
+    position: absolute;
+    display: inline-block;
+    height: 40px;
+    width: 250px;
+    background-color: #666;
+    top: calc(50% - 20px);
+    left: calc(50% - 125px);
+    z-index: 999;
+    border-radius: 3px;
+    border: 1px solid #000;
+}
+
+#testdiv{
+    border: 1px solid black;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    width: auto;
+}
+#canvas{
+    border: 1px solid black;
+}
+body{
+    padding: 0;
+    margin: 0;
+    background-color: #FBF7EC !important;  
+}
+html{
+    padding: 0;
+    margin: 0;
+    background-color: #FBF7EC !important;
+}
+
+#loadingBack{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left:0;
+    background-color: #333;
+    z-index: 99;
+}
+
+#loader {
+    border: 8px solid #FBF7EC; /* Light grey */
+    border-top: 8px solid #5cb85c; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 0.5s linear infinite;
+    z-index: 999;
+    position: absolute;
+    top: calc(50% - 60px);
+    left:calc(50% - 60px);
+}
+
+#loaderProg {
+    width: 110px;
+    height: 110px;
+    z-index: 9999;
+    position: absolute;
+    top: calc(50% - 10px);
+    left:calc(50% - 45px);
+    font-size: 25px;
+    font-weight: bold;
+    color: #FBF7EC;
+    padding-top: 5px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#leiste0{
+    height: 3px;
+    background-color: #32936F;
+}
+#leiste1{
+    height: 3px;
+    background-color: #FFBF00;
+}
+#leiste2{
+    height: 3px;
+    background-color: #E83F6F;
+}
+#leiste3{
+    height: 3px;
+    background-color: #2274A5;
+}
+
+#titlebar{
+    background-color: #000;
+    padding: 10px;
+    text-align: center;
+}
+
+#title{
+    font-family:Molle;
+    font-size: 24px;
+    color: white;
+    vertical-align: middle;
+}
+
+#page{
+    width: 800px;
+    margin: 0 auto;
+}
+
+#scene{
+    height: 400px;
+    border: 0px solid #333;
+    border-top:0px;
+    border-left:0px;
+    border-right:0px;
+    background-color: #333;
+    margin-top: 0px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+#svgWrapper{
+    display: flex;
+    width: 400px;
+    height: 400px;
+    flex-flow: column;
+}
+
+#toolbar{
+    font-size: 18px;
+    font-family: Arial;
+    width: 810px;
+    margin: 0px;
+    margin-top: 20px;
+    margin-top: 20px;
+    border-radius: 3px;
+    color: #333;
+}
+
+#toolbar td{
+    width: 50%;
+    vertical-align: top;
+}
+
+#tools td{
+    vertical-align: top;
+    padding: 10px;
+}
+
+.tools_title{
+    text-align: right;
+    min-width: 160px;
+    vertical-align: middle;
+    font-weight: bold;
+}
+.tools_edit{
+    min-width: 120px;
+}
+
+.tools_value{
+    vertical-align: top !important;
+    min-width: 200px;
+    width: 200px;
+    max-width: 200px;
+    text-align: left;
+    font-weight: lighter;
+    color: #333;
+    font-size: 16px;
+}
+
+#value_fontfam{
+    font-size: 20px;
+    padding-top: 20px !important;
+}
+
+#textbox{
+    width: 405px;
+    display: inline-block;
+    padding-left: 20px;
+}
+
+#textedit{
+    resize: none;
+    border-radius: 3px;
+    margin: 0px;
+    display: block;
+    padding: 10px;
+}
+
+#btn_start{
+    margin-top: 10px;
+    float: left;
+}
+
+.divcolorpicker{
+    width: 21px;
+    height: 30px;
+    border: 2px solid #fff;
+    border-radius: 3px;
+    display: inline-block;
+    cursor: pointer;
+}
+.divcolorpicker:hover{
+    border: 2px solid #333;
+}
+
+
+button{
+    font-size: 16px;
+    font-family: Arial;
+    padding: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 3px;
+    background-color: #2274A5;
+    color: white;
+    border: 0px solid black;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: #3680AD;
+}
+
+button:focus{
+    outline: none;
+}
+
+
+
+input[type=range] {
+    -webkit-appearance: none;
+    margin: 10px 0;
+    width: 100%;
+    vertical-align: middle;
+}
+input[type=range]:focus {
+    outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 3px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 1px 1px 1px #333;
+    background: #333;
+    border-radius: 3px;
+    border: 0px solid #333;
+}
+input[type=range]::-webkit-slider-thumb {
+    box-shadow: 1px 1px 1px #000000;
+    border: 0px solid #ffffff;
+    height: 23px;
+    width: 16px;
+    border-radius: 3px;
+    background: #333;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -11px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #2274A5;
+}
+input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 3px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 1px 1px 1px #000000;
+    background: #000000;
+    border-radius: 3px;
+    border: 1px solid #000000;
+}
+input[type=range]::-moz-range-thumb {
+    box-shadow: 1px 1px 1px #000000;
+    border: 1px solid #000000;
+    height: 23px;
+    width: 16px;
+    border-radius: 3px;
+    background: #FFFFFF;
+    cursor: pointer;
+}
+input[type=range]::-ms-track {
+    width: 100%;
+    height: 3px;
+    cursor: pointer;
+    animate: 0.2s;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+    background: #000000;
+    border: 1px solid #000000;
+    border-radius: 6px;
+    box-shadow: 1px 1px 1px #000000;
+}
+input[type=range]::-ms-fill-upper {
+    background: #000000;
+    border: 1px solid #000000;
+    border-radius: 6px;
+    box-shadow: 1px 1px 1px #000000;
+}
+input[type=range]::-ms-thumb {
+    box-shadow: 1px 1px 1px #000000;
+    border: 1px solid #000000;
+    height: 23px;
+    width: 16px;
+    border-radius: 3px;
+    background: #FFFFFF;
+    cursor: pointer;
+}
+input[type=range]:focus::-ms-fill-lower {
+    background: #000000;
+}
+input[type=range]:focus::-ms-fill-upper {
+    background: #000000;
+}
+
+input[type=text]{
+    display: inline-block;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    padding: 10px 20px;
+    border: 1px solid #b7b7b7;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    font: normal 16px/normal Arial, Helvetica, sans-serif;
+    color: rgba(40,40,40,1);
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    background: rgba(252,252,252,1);
+    -webkit-box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) inset;
+    box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) inset;
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.66) ;
+    -webkit-transition: border-color 200ms cubic-bezier(0.42, 0, 0.58, 1), all 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
+    -moz-transition: border-color 200ms cubic-bezier(0.42, 0, 0.58, 1), all 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
+    -o-transition: border-color 200ms cubic-bezier(0.42, 0, 0.58, 1), all 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
+    transition: border-color 200ms cubic-bezier(0.42, 0, 0.58, 1), all 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;
+}
+
+.select {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 15px;
+    width: 100%;
+}    .select select {
+    font-family: 'Arial';
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+    padding: 10px 15px;
+    outline: 0;
+    border: 1px solid #333;
+    border-radius: 3px;
+    background: #fff;
+    color: #7B7B7B;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+.select select::-ms-expand {
+    display: none;
+}
+.select select:hover,
+.select select:focus {
+    color: #333;
+    background: #fff;
+}
+.select select:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+.select_arrow {
+    position: absolute;
+    top: 13px;
+    right: 15px;
+    width: 0;
+    height: 0;
+    border: solid #333;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+.select select:hover ~ .select_arrow,
+.select select:focus ~ .select_arrow {
+    border-top-color: #333;
+}
+.select select:disabled ~ .select_arrow {
+    border-top-color: #CCCCCC;
+}

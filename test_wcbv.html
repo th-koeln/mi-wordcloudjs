@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>WordcloudJS</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="main.css" rel="stylesheet" type="text/css"/>
+        <link href="WordcloudJS/Colorpicker/css/colorpicker.css" rel="stylesheet" type="text/css"/>
+        <link href="WordcloudJS/Colorpicker/css/layout.css" rel="stylesheet" type="text/css"/>
+
+        <script src="WordcloudJS/WordcloudJS.js" type="text/javascript"></script>
+
+        <script src="jquery-3.1.1.min.js" type="text/javascript"></script>
+        <script src="WordcloudJS/Colorpicker/js/colorpicker.js" type="text/javascript"></script>
+        <script src="test_wcbv.js" type="text/javascript"></script>
+
+    </head>
+    <body>
+        <div id="leiste0"></div>
+        <div id="leiste1"></div>
+        <div id="leiste2"></div>
+        <div id="leiste3"></div>
+        <div id="titlebar">
+            <button id="btn_back">Zurück</button>
+            <div id="title">WordcloudJS</div>
+        </div>
+        <div id="scene">
+            <div id='canvasWrapper'></div>            
+        </div>
+        <div id="page">
+            <table id="toolbar">
+                <tr>
+                    <td>
+                        <table id="tools">
+                            <tr>
+                                <td class="tools_title">Bounding-Volume MinSize:</td>
+                                <td class="tools_edit">
+                                    <input type="range" min="2" max="32" value="8" id="input_minsize"/>
+                                </td>
+                                <td class="tools_value" id="value_minsize"></td>
+                            </tr>
+                            <tr>
+                                <td class="tools_title">Fill:</td>
+                                <td class="tools_edit">
+                                    <input type="checkbox" id="input_fill"/>
+                                </td>
+                                <td class="tools_value" id="value_fill"></td>
+                            </tr>
+                            <tr>
+                                <td class="tools_title">Option:</td>
+                                <td class="tools_edit">
+                                    <input type="range" min="0" max="2" value="0" id="input_option"/>
+                                </td>
+                                <td class="tools_value" id="value_option">all</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
