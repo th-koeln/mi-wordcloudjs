@@ -1,5 +1,29 @@
 # WordCloudJS
 WordCloudJS ist ein JavaScript Framework zur Generierung von Wortwolken.
+
+## Verwendung des Frameworks WordCloudJS in Webanwendungen
+
+Die Einbindung der Dateien im Webprojekt erfolgt über den <head>-Bereich des HTML:
+
+```html
+<script src="WordcloudJS/webfontloader.js" ty-pe="text/javascript"></script>
+<script src="WordcloudJS/WordcloudJS.js" type="text/javascript"></script>
+```
+Falls weitere Schriftarten verwendet werden sollen, müssen diese in einer zusätzlichen CSS-Datei definiert werden.
+
+## Installation der Beispielanwendung
+
+Für die Installation der Beispielanwendung müssen alle Projektdateien, die sich im Repository befinden heruntergeladen werden. Zum Ausführen der Anwendung muss lediglich die index.html Datei ausgeführt werden. Hierfür ist ein Browser notwendig. Da die Anwendung bei der Entwicklung ausschließlich mit dem Google Chrome Browser getestet wurde, empfiehlt es sich auch für die Verwen-dung der Beispielanwendung den neuesten Google Chrome Browser zu verwen-den.
+
+Die Anwendung selbst bietet zwei Modi zur Generierung von Wortwolken:
+
+### Wortwolken generieren aus Texten
+In diesem Modus werden Wortwolken aus einem Text generiert, der in einem Ein-gabefeld eingefügt werden kann. Dabei werden die Stoppwörter aus dem Text erkannt und bei Generierung der Wortwolke nicht berücksichtigt. Alle anderen Wörter werden nach der Häufigkeit des Vorkommens im Text gewichtet, wodurch die Schriftgröße bestimmt wird.  
+
+### Wortwolken generieren aus Wörtern
+In diesem Modus wird eine Wortwolke aus einzelnen Wörtern generiert. Die Schriftgröße wird hierbei zufällig gewählt und es werden keine Stoppwörter gefil-tert. Die Wortwolke wird dabei aus allen Wörter gebildet, die sich in dem Einga-befeld eingefügt werden. Die Anzahl der Wörter ist in diesem Modus festgesetzt auf 600 Wörtern.
+
+
 ## API
 ### WordCloudJS.core
 
