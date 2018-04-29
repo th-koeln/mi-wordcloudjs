@@ -15,7 +15,7 @@ WordCloudJS ist ein JavaScript Framework zur Generierung von Wortwolken.
 Die Einbindung der Dateien im Webprojekt erfolgt über den <head>-Bereich des HTML:
 
 ```html
-<script src="WordcloudJS/webfontloader.js" ty-pe="text/javascript"></script>
+<script src="WordcloudJS/webfontloader.js" type="text/javascript"></script>
 <script src="WordcloudJS/WordcloudJS.js" type="text/javascript"></script>
 ```
 Falls weitere Schriftarten verwendet werden sollen, müssen diese in einer zusätzlichen CSS-Datei definiert werden.
