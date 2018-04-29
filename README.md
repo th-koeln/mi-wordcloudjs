@@ -2,9 +2,9 @@
 WordCloudJS ist ein JavaScript Framework zur Generierung von Wortwolken.
 
 ### Inhaltsverzeichnis
-#### [Verwendung des Frameworks WordCloudJS in Webanwendungen](#verwendung-des-frameworks-wordcloudjs-in-webanwendungen)
-#### [Installation der Beispielanwendung](#installation-der-beispielanwendung)
-#### [API](#api)
+[Verwendung des Frameworks WordCloudJS in Webanwendungen](#verwendung-des-frameworks-wordcloudjs-in-webanwendungen)
+[Installation der Beispielanwendung](#installation-der-beispielanwendung)
+[API](#api)
 
 
 ## Verwendung des Frameworks WordCloudJS in Webanwendungen
