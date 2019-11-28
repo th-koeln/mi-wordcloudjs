@@ -1,26 +1,13 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>WordcloudJS</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         
-        <link href="main.css" rel="stylesheet" type="text/css"/>
-        <link href="WordcloudJS/Colorpicker/css/colorpicker.css" rel="stylesheet" type="text/css"/>
-        <link href="WordcloudJS/Colorpicker/css/layout.css" rel="stylesheet" type="text/css"/>
-
-        <script src="WordcloudJS/webfontloader.js" type="text/javascript"></script>
-        <script src="WordcloudJS/WordcloudJS.js" type="text/javascript"></script>
-
-        <script src="jquery-3.1.1.min.js" type="text/javascript"></script>
-        <script src="WordcloudJS/Colorpicker/js/colorpicker.js" type="text/javascript"></script>
-        <script src="performance_test.js" type="text/javascript"></script>
-
+        <link rel="stylesheet" href="assets/main.css" />
+        <link rel="stylesheet" href="libs/Colorpicker/css/colorpicker.css" />
+        <link rel="stylesheet" href="libs/Colorpicker/css/layout.css" />
     </head>
     <body>
         <div id="wordcloudLoader_back"></div>
@@ -28,10 +15,6 @@ and open the template in the editor.
             <div id="wordcloudLoader_prog"></div>
             <div id="wordcloudLoader_text">100</div>
         </div>
-        <div id="leiste0"></div>
-        <div id="leiste1"></div>
-        <div id="leiste2"></div>
-        <div id="leiste3"></div>
         <div id="titlebar">
             <button id="btn_back">Zurück</button>
             <div id="title">WordcloudJS</div>
@@ -92,5 +75,10 @@ and open the template in the editor.
                 </tr>
             </table>
         </div>
+        <script src="node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="node_modules/webfontloader/webfontloader.js"></script>
+        <script src="libs/Colorpicker/js/colorpicker.js"></script>
+        <script src="src/wordcloud.js"></script>
+        <script src="src/performance_test.js"></script>
     </body>
 </html>
