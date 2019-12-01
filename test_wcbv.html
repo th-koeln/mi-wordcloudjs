@@ -5,8 +5,9 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         
-        <link rel="stylesheet" href="assets/main.css" />
         <link rel="stylesheet" href="libs/Colorpicker/css/colorpicker.css" />
+        <link rel="stylesheet" href="assets/main.css" />
+        <link rel="stylesheet" href="fonts/fonts.css" />
         <link rel="stylesheet" href="libs/Colorpicker/css/layout.css" />
     </head>
     <body>
@@ -15,7 +16,7 @@
             <div id="title">WordcloudJS</div>
         </div>
         <div id="scene">
-            <div id="canvasWrapper"></div>            
+            <div id="canvasWrapper"></div>
         </div>
         <div id="page">
             <table id="toolbar">
@@ -27,7 +28,7 @@
                                 <td class="tools_edit">
                                     <input type="range" min="2" max="32" value="8" id="input_minsize" />
                                 </td>
-                                <td class="tools_value" id="value_minsize"></td>
+                                <td class="tools_value" id="value_minsize">8 </td>
                             </tr>
                             <tr>
                                 <td class="tools_title">Fill:</td>
@@ -52,14 +53,10 @@
         <script src="libs/Colorpicker/js/colorpicker.js"></script>
         <script src="src/wordcloud.js"></script>
         <script>
-
             $(document).ready(() => {
-                
                 wc = new WordcloudJS();
                 $('#scene').css('background-color', '#ffffff');
                 $('#canvasWrapper').css('margin-top', '100px');
-                
-                $('#value_minsize').html($('#input_minsize').val());
 
                 $('#input_minsize').mousemove(() => {
                     build();
@@ -75,10 +72,8 @@
                 $('#input_fill').change(() => {
                     build();
                 });
-
-                build();
                 
-                function build() {
+                const build = () => {
                     $('#canvasWrapper canvas').remove();
 
                     const word = new wc.createWord({
@@ -91,15 +86,15 @@
                     });
 
                     const canvas = word.drawWordOnCanvas({
-                        color: '#FF0000',
+                        color: '#DD1166',
                         fill: $('#input_fill').prop('checked'),
                         drawOption: getOption(parseInt($('#input_option').val()))
                     });
 
                     $('#canvasWrapper').append(canvas);
-                }
+                };
 
-                function getOption(selectedOption) {
+                const getOption = (selectedOption) => {
                     let defaultOption = 'all';
                     
                     if (selectedOption == 1) {
@@ -108,7 +103,9 @@
                         return 'filled';
                     }
                     return defaultOption;
-                }
+                };
+                
+                build();
             });
         </script>
     </body>
