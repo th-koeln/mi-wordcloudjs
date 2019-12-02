@@ -5,9 +5,9 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         
-        <link rel="stylesheet" href="libs/Colorpicker/css/colorpicker.css" />
-        <link rel="stylesheet" href="libs/Colorpicker/css/layout.css" />
-        <link rel="stylesheet" href="assets/main.css" />
+        <link rel="stylesheet" href="node_modules/spectrum-colorpicker/spectrum.css" />
+        <link rel="stylesheet" href="fonts/fonts.css" />
+        <link rel="stylesheet" href="css/main.css" />
     </head>
     <body>
         <div class="loader">
@@ -105,8 +105,8 @@
         </div>
         <script src="node_modules/jquery/dist/jquery.min.js"></script>
         <script src="node_modules/webfontloader/webfontloader.js"></script>
-        <script src="libs/Colorpicker/js/colorpicker.js"></script>
-        <script src="src/wordcloud.js"></script>
+        <script src="node_modules/spectrum-colorpicker/spectrum.js"></script>
+        <script src="js/wordcloud.js"></script>
         <script>
             const addWordToScene = (setting) => {
                 setTimeout(() => {
@@ -337,12 +337,14 @@
                 };
 
                 Object.keys(colors).forEach((key) => {
-                    $(key).ColorPicker({
-                        onChange: (bhs, hex) => {
-                            $(key).css({'background-color': `#${hex}`});
-                        }
+                    $(key).spectrum({
+                        preferredFormat: 'hex',
+                        showInitial: true,
+                        showInput: true,
+                        color: `#${colors[key]}`
+                    }).on('dragstop.spectrum', function(e, color) {
+                        $(key).css({'background-color': color.toHexString()});
                     });
-                    $(key).ColorPickerSetColor(colors[key]);
                     $(key).css({'background-color': `#${colors[key]}`});
                 });
             

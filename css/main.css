@@ -1,5 +1,5 @@
 /* Element Styles */
-html {
+* {
     padding: 0;
     margin: 0;
 }
@@ -7,6 +7,7 @@ body {
     padding: 0;
     margin: 0;
     font-size: 16px;
+    line-height: 18px;
     font-family: Arial, Helvetica, sans-serif;
     color: #2b2b2b;
 }
@@ -53,6 +54,7 @@ body {
             top: calc(50% - 10px);
             left: calc(50% - 125px);
             z-index: 9999;
+            text-align: center;
             font-size: 20px;
             font-weight: bold;
             color: #FFFFFF;
@@ -155,12 +157,6 @@ body {
         flex-wrap: nowrap;
         justify-content: flex-start;
     }
-        
-        #input__text { flex: 1; }
-
-        #input__generate {
-            align-self: baseline;
-        }
 
 @media(max-width: 1000px) {
     .options {
@@ -180,7 +176,8 @@ body {
 
     #input__text {
         resize: none;
-        font-size: 1rem;
+        flex: 1;
+        font-size: .9rem;
         line-height: 1.4rem;
         font-family: Arial, Helvetica, sans-serif;
         border-radius: 3px;
@@ -189,6 +186,7 @@ body {
 
     #input__generate {
         margin-top: 1.5rem;
+        align-self: baseline;
         float: left;
     }
 
@@ -206,8 +204,8 @@ body {
     }
 
 button {
-    font-size: 1.25rem;
-    padding: 1.1rem;
+    font-size: 1rem;
+    padding: 1rem;
     border-radius: 3px;
     background-color: #DD1166;
     color: #FFFFFF;

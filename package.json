@@ -13,6 +13,7 @@
   "homepage": "https://github.com/th-koeln/mi-wordcloudjs#readme",
   "dependencies": {
     "jquery": "^3.4.1",
+    "spectrum-colorpicker": "1.8.0",
     "webfontloader": "^1.6.28"
   }
 }
