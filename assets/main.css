@@ -60,23 +60,6 @@ html {
         }
 
 
-#btn_back {
-    position: absolute;
-    left: 10px;
-    background-color: #dd1166;
-    color: #FFFFFF;
-    border-radius: 3px;
-    font-size: 14px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    text-decoration: none;
-    padding: 5px 10px;
-}
-
-    #btn_back:hover {
-        background-color: #9313ce;
-    }
-
 #timer {
     height: 25px;
     background-color: #222;
@@ -100,6 +83,52 @@ html {
     left: 10px;
     top: 390px;
 }
+
+.loader {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left:0;
+    background-color: #000000;
+    z-index: 99;
+    opacity: .8;
+}
+
+    .loader__progressbar {
+        height: 40px;
+        width: 250px;
+        background-color: #666666;
+        z-index: 999;
+        border-radius: 3px;
+        border: 1px solid #000000;
+    }
+
+        .loader__progress {
+            position: absolute;
+            height: 40px;
+            width: 0;
+            background-color: #DD1166;
+            top: calc(50% - 20px);
+            left: calc(50% - 125px);
+            z-index: 9999;
+            border-radius: 3px;
+        }
+
+        .loader__text {
+            position: absolute;
+            height: 40px;
+            width: 250px;
+            top: calc(50% - 10px);
+            left: calc(50% - 125px);
+            z-index: 9999;
+            font-size: 20px;
+            font-weight: bold;
+            color: #FFFFFF;
+        }
 
 #wordcloudLoader_text {
     position: absolute;
@@ -151,70 +180,40 @@ html {
     border: 1px solid #000;
 }
 
-#loadingBack {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left:0;
-    background-color: #333;
-    z-index: 99;
-}
-
 #wordcloudLoader_back {
     display: none;
 }
 
-#loader {
-    border: 8px solid #FBF7EC;
-    border-top: 8px solid #5cb85c;
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    animation: spin 0.5s linear infinite;
-    z-index: 999;
-    position: absolute;
-    top: calc(50% - 60px);
-    left:calc(50% - 60px);
-}
-
-#loaderProg {
-    width: 110px;
-    height: 110px;
-    z-index: 9999;
-    position: absolute;
-    top: calc(50% - 10px);
-    left:calc(50% - 45px);
-    font-size: 25px;
-    font-weight: bold;
-    color: #FBF7EC;
-    padding-top: 5px;
-}
-
-@keyframes spin {
-    0% { 
-        transform: rotate(0deg);
-    }
-    
-    100% { 
-        transform: rotate(360deg);
-    }
-}
-
-#titlebar {
+.header {
     background-color: #FFFFFF;
     padding: 10px;
     border-bottom: 3px solid #dd1166;
     text-align: center;
 }
 
-#title {
-    font-family: Molle;
-    font-size: 24px;
-    color: #dd1166;
-    padding: 5px 0;
-    vertical-align: middle;
-}
+    .header__title {
+        font-family: Molle;
+        font-size: 24px;
+        color: #dd1166;
+        text-transform: none;
+        line-height: normal;
+        height: auto;
+    }
+
+    .header__home {
+        position: absolute;
+        left: 10px;
+        background-color: #dd1166;
+        color: #FFFFFF;
+        border-radius: 3px;
+        font-size: 14px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-decoration: none;
+        padding: 5px 10px;
+    }
+        
+        .header__home:hover { background-color: #9313ce; }
 
 #page {
     width: 800px;
@@ -236,6 +235,7 @@ html {
     display: flex;
     width: 400px;
     height: 400px;
+    margin: 0 auto;
     flex-flow: column;
 }
 

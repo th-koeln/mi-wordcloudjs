@@ -10,16 +10,16 @@
         <link rel="stylesheet" href="assets/main.css" />
     </head>
     <body>
-        <div id="wordcloudLoader_back">
-            <div id="wordcloudLoader">
-                <div id="wordcloudLoader_prog"></div>
-                <div id="wordcloudLoader_text">100</div>
+        <div class="loader">
+            <div class="loader__progressbar">
+                <div class="loader__progress"></div>
+                <div class="loader__text">0</div>
             </div>
         </div>
-        <div id="titlebar">
-            <a id="btn_back" href="index.html">Zurück</a>
-            <div id="title">WordcloudJS</div>
-        </div>
+        <header class="header">
+            <a class="header__home" href="index.html">Zurück</a>
+            <h1 class="header__title">WordcloudJS</h1>
+        </header>
         <div id="scene">
             <div id="svgWrapper"></div>
             <div id="timer"></div>            
@@ -31,14 +31,14 @@
                     <td>
                         <table id="tools">
                             <tr>
-                                <td class="tools_title">Margin:</td>
+                                <td class="tools_title">Margin</td>
                                 <td class="tools_edit">
                                     <input type="range" min="0" max="10" value="2" id="input_margin"/>
                                 </td>
                                 <td class="tools_value" id="value_margin">2 Pixel</td>
                             </tr>
                             <tr>
-                                <td class="tools_title">Schriftart:</td>
+                                <td class="tools_title">Schriftart</td>
                                 <td class="tools_edit">
                                     <div class="select">
                                         <select id="input_fontfam"></select>
@@ -49,7 +49,7 @@
                                 <td class="tools_value" id="value_fontfam">WordcloudJS</td>
                             </tr>
                             <tr>
-                                <td class="tools_title">Schriftfarbe:</td>
+                                <td class="tools_title">Schriftfarbe</td>
                                 <td class="tools_edit">
                                     <div class="divcolorpicker" id="input_color1"></div>
                                     <div class="divcolorpicker" id="input_color2"></div>
@@ -59,35 +59,35 @@
                                 <td class="tools_value" id="value_fontcol"></td>
                             </tr>
                             <tr>
-                                <td class="tools_title">Schriftrichtung:</td>
+                                <td class="tools_title">Schriftrichtung</td>
                                 <td class="tools_edit">
                                     <input type="range" min="0" max="2" value="0" id="input_dir" />
                                 </td>
                                 <td class="tools_value" id="value_dir">Horizontal</td>
                             </tr>
                             <tr>
-                                <td class="tools_title">Maximale Schriftgröße:</td>
+                                <td class="tools_title">Maximale Schriftgröße</td>
                                 <td class="tools_edit">
                                     <input type="range" min="10" max="200" value="100" id="input_fontsizemax" />
                                 </td>
                                 <td class="tools_value" id="value_fontsizemax">100 Pixel</td>
                             </tr>
                             <tr>
-                                <td class="tools_title">Minimale Schriftgröße:</td>
+                                <td class="tools_title">Minimale Schriftgröße</td>
                                 <td class="tools_edit">
                                     <input type="range" min="10" max="100" value="20" id="input_fontsizemin" />
                                 </td>
                                 <td class="tools_value" id="value_fontsizemin">20 Pixel</td>
                             </tr>
                             <tr>
-                                <td class="tools_title">Pfad:</td>
+                                <td class="tools_title">Pfad</td>
                                 <td class="tools_edit">
                                     <input type="range" min="0" max="1" value="0" id="input_path"/>
                                 </td>
                                 <td class="tools_value" id="value_path">Spirale</td>
                             </tr>
                             <tr>
-                                <td class="tools_title">Alpha:</td>
+                                <td class="tools_title">Alpha</td>
                                 <td class="tools_edit">
                                     <input type="range" min="0" max="1" value="0" id="input_alpha"/>
                                 </td>
@@ -104,45 +104,16 @@
                 </tr>
             </table>
         </div>
-        <div id="loadingBack"></div>
-        <div id="loader"></div>
-        <div id="loaderProg">0</div>
         <script src="node_modules/jquery/dist/jquery.min.js"></script>
         <script src="node_modules/webfontloader/webfontloader.js"></script>
         <script src="libs/Colorpicker/js/colorpicker.js"></script>
         <script src="src/wordcloud.js"></script>
         <script>
-            const startLoaderInit = () => {
-                let prog = 0;
-                intervalLoading = setInterval(() => {
-                    prog++;
-                    if (prog < 100) {
-                        $('#loaderProg').html(prog + ' %');
-                    }
-                }, 20);
-            }
-            
-            const hideLoading = () => {
-                clearInterval(intervalLoading);
-                setTimeout(() => {
-                    $('#loaderProg').html('100 %');
-                    $('#loadingBack').fadeOut(2000, () => {
-                        $('#loadingBack').remove();
-                    });
-                    $('#loader').fadeOut(500, () => {
-                        $('#loader').remove();
-                    });
-                    $('#loaderProg').fadeOut(500, () => {
-                        $('#loaderProg').remove();
-                    });
-                }, 100);
-            }
-            
             const addWordToScene = (setting) => {
                 setTimeout(() => {
                     setting.prog = ((-1 * (setting.wordTable.wordTable.length - setting.wordCount)) / setting.wordCount) * 100;
-                    $('#wordcloudLoader_text').html(parseInt(setting.prog, 10));
-                    $('#wordcloudLoader_prog').css({
+                    $('.loader__text').html(parseInt(setting.prog, 10));
+                    $('.loader__progress').css({
                         'width': setting.prog / 100 * 250 + 'px'
                     });
                     
@@ -222,19 +193,16 @@
                 /* add scene to svgwrapper */
                 svgScene.setAttribute('viewBox', `0 0 ${svgWidth} ${svgHeight}`);
                 $('#svgWrapper').css({
-                    'width': svgWidth + 'px',
-                    'margin-left': marginLeft
-                });
+                    'width': svgWidth + 'px'});
                 document.getElementById('svgWrapper')
                         .appendChild(svgScene);
                 
                 /* finish loading */
-                $('#wordcloudLoader_text').html('100');
-                $('#wordcloudLoader_prog').css({
-                    'width': '250px',
-                    'background-color': '#2274A5'
+                $('.loader__text').html('100');
+                $('.loader__progress').css({
+                    'width': '250px'
                 });
-                $('#wordcloudLoader_back').fadeOut(1000);
+                $('.loader').fadeOut(1000);
 
                 /* calculate performance */
                 t1 = performance.now();
@@ -248,14 +216,12 @@
             
             const startWordcloud = (wc, pathSpir, pathRect) => {
                 /* show loading bar */
-                $('#wordcloudLoader_prog').css({
-                    'width': '0px',
-                    'background-color': '#5cb85c'
+                $('.loader__progress').css({
+                    'width': '0px'
                 });
-                $('#wordcloudLoader_text').html('0');
-                $('#wordcloudLoader_back').fadeIn(500);
+                $('.loader__text').html('0');
 
-                $('#wordcloudLoader').fadeIn(500, () => {
+                $('.loader').css({'display': 'flex'}).fadeIn(500, () => {
                     t0 = performance.now();
                     setTimeout(() => {
                         $('#svgScene').remove();
@@ -301,8 +267,6 @@
             }
             
             $(document).ready(() => {
-                startLoaderInit();
-            
                 /* Setup margin value */
                 $('#input_margin').mousemove(() => {
                     $('#value_margin').html($('#input_margin').val() + ' Pixel');
@@ -424,8 +388,6 @@
     
                     const pathRect = wc.getRectSpiralPath(10, 5, 2500, 2500, 5000);
                     const pathSpir = wc.getSpiralPath(5, 1, 2500, 2500, 5000);
-            
-                    hideLoading();
             
                     $('#btn_start').click(() => {
                         startWordcloud(wc, pathSpir, pathRect);

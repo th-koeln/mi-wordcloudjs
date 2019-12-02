@@ -11,10 +11,10 @@
         <link rel="stylesheet" href="libs/Colorpicker/css/layout.css" />
     </head>
     <body>
-        <div id="titlebar">
-            <a id="btn_back" href="index.html">Zurück</a>
-            <div id="title">WordcloudJS</div>
-        </div>
+        <header class="header">
+            <a class="header__home" href="index.html">Zurück</a>
+            <h1 class="header__title">WordcloudJS</h1>
+        </header>
         <div id="scene">
             <div id="canvasWrapper"></div>
         </div>
@@ -24,21 +24,21 @@
                     <td>
                         <table id="tools">
                             <tr>
-                                <td class="tools_title">Bounding-Volume MinSize:</td>
+                                <td class="tools_title">Bounding-Volume MinSize</td>
                                 <td class="tools_edit">
                                     <input type="range" min="2" max="32" value="8" id="input_minsize" />
                                 </td>
                                 <td class="tools_value" id="value_minsize">8 </td>
                             </tr>
                             <tr>
-                                <td class="tools_title">Fill:</td>
+                                <td class="tools_title">Fill</td>
                                 <td class="tools_edit">
                                     <input type="checkbox" id="input_fill" />
                                 </td>
                                 <td class="tools_value" id="value_fill"></td>
                             </tr>
                             <tr>
-                                <td class="tools_title">Option:</td>
+                                <td class="tools_title">Option</td>
                                 <td class="tools_edit">
                                     <input type="range" min="0" max="2" value="0" id="input_option" />
                                 </td>
