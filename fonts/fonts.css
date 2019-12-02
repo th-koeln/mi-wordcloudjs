@@ -14,15 +14,15 @@ and open the template in the editor.
 }
 @font-face {
     font-family: 'Norican';
-    src: url('../fonts/Norican-Regular.ttf');
+    src: url('../fonts/Norican/Norican-Regular.ttf');
 }
 @font-face {
     font-family: 'Molle';
-    src: url('../fonts/Molle-Regular.ttf');
+    src: url('../fonts/Molle/Molle-Regular.ttf');
 }
 @font-face {
     font-family: 'Damion';
-    src: url('../fonts/Damion-Regular.ttf');
+    src: url('../fonts/Damion/Damion-Regular.ttf');
 }
 
 
