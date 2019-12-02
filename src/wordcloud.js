@@ -24,49 +24,54 @@ WordcloudJS.core = function () {
 WordcloudJS.core.prototype = {
     /**
      * Fonts über WebFontLoader Framework laden.
-     * Übergeben wird das webFontConfig Objekt mit den Fonts (Siehe WebFontLoader API). 
+     * Übergeben wird das webFontConfig Objekt mit den Fonts  (Siehe WebFontLoader API). 
      * Die Events active,inactive, fontactive,fontinactive müssen nicht mit übergeben werden.
      * Sobald die Fonts geladen sind, wird die übergebene Funktion ready ausgeführt.
-     * @param {Object} webFontConfig
+     * @param {Object}   webFontConfig
      * @param {function} ready 
      * @returns {undefined}
      */
     loadFonts: function (webFontConfig, ready) {
+
         if (webFontConfig != null) {
             webFontConfig.active = function () {
-                console.log('WebFont loading finished!');
+                console.log("WebFont loading finished!");
                 ready();
             };
             webFontConfig.inactive = function () {
-                console.log('WebFont loading failed!');
+                console.log("WebFont loading failed!");
             };
             webFontConfig.fontactive = function (familyName, fvd) {
-                console.log('Font loaded: ' + familyName);
+                console.log("Font loaded: " + familyName);
             };
             webFontConfig.fontinactive = function (familyName, fvd) {
-                console.log('Font failed: ' + familyName);
+                console.log("Font failed: " + familyName);
             };
             WebFont.load(webFontConfig);
         } else {
-            console.log('No webFontConfig!');
+            console.log("No webFontConfig!");
         }
     },
     getWordTableFromText: function (text, language) {
-        let wordTable = [];
-        let words = [];
-        let stopwords;
-        let minCount = 0;
-        let maxCount = 0;
-        let tempCount;
-        let hashTable = {};
+        var wordTable = [];
+        var words = [];
+        var stopwords;
+        var reg;
+        var minCount = 0;
+        var maxCount = 0;
+        var tempCount;
+        var hashTable = {};
 
-        if(language === 'german') {
-            stopwords = WordcloudJS.stopwords.german;
-        } else {
-            stopwords = WordcloudJS.stopwords.english;
+        switch (language) {
+            case "german":
+                stopwords = WordcloudJS.stopwords.german;
+                break;
+            case "english":
+                stopwords = WordcloudJS.stopwords.english;
+                break;
         }
 
-        text = ' ' + text + ' ';
+        text = " " + text + " ";
 
         // Alle nicht alphabetischen numerischen Zeichen entfernen
         text = text.replace(/[^a-zA-Z ä ö ü 0-9]+/g, ' ');
@@ -76,17 +81,18 @@ WordcloudJS.core.prototype = {
 
         // Alle Stoppwörter entfernen
         for (var i = 0; i < stopwords.length; i++) {
-            let reg = new RegExp('\\s' + stopwords[i] + '\\s', 'gi');
-            text = text.replace(reg, ' ');
+            reg = new RegExp('\\s' + stopwords[i] + '\\s', 'gi');
+            text = text.replace(reg, " ");
         }
 
-        words = text.split(' ');
+        words = text.split(" ");
 
-        let first = true;
+
+        var first = true;
         for (var i = 0; i < words.length; i++) {
-            if (words[i] != ' ' && words[i] != '') {
+            if (words[i] != " " && words[i] != "") {
                 if (hashTable[words[i].toLowerCase()] == null) {
-                    tempCount = text.match(new RegExp('\\s' + words[i] + '\\s', 'gi')).length;
+                    tempCount = text.match(new RegExp("\\s" + words[i] + '\\s', 'gi')).length;
                     if (first) {
                         first = false;
                         minCount = tempCount;
@@ -108,6 +114,7 @@ WordcloudJS.core.prototype = {
                 }
             }
         }
+
         return {
             wordCount: wordTable.length,
             minWordCount: minCount,
@@ -126,12 +133,12 @@ WordcloudJS.core.prototype = {
      * <br>class: {string},
      * <br>boundingVolumeMinSize: {number},
      * <br>style: {
-     * <br>&emsp;    'fontStyle': {string},
-     * <br>&emsp;     'fontVariant': {string},
-     * <br>&emsp;    'fontWeight': {string},
-     * <br>&emsp;     'fontSize': {number},
-     * <br>&emsp;     'fontFamily': {string},
-     * <br>&emsp;     'fontColor': {string}
+     * <br>&emsp;    "fontStyle": {string},
+     * <br>&emsp;     "fontVariant": {string},
+     * <br>&emsp;    "fontWeight": {string},
+     * <br>&emsp;     "fontSize": {number},
+     * <br>&emsp;     "fontFamily": {string},
+     * <br>&emsp;     "fontColor": {string}
      * <br>}
      * @returns {WordcloudJS.word}
      */
@@ -139,10 +146,12 @@ WordcloudJS.core.prototype = {
         return new WordcloudJS.word(options);
     },
     getSpiralPath: function (distPoints, distCoils, maxRadius, startX, startY) {
-        let points = [];
-        let x = startX;
-        let y = startY;
-        let angle = 0;
+        var points = [];
+
+        var x = startX;
+        var y = startY;
+
+        var angle = 0;
 
         while (Math.abs(x - startX) < maxRadius) {
             angle += distPoints / ((Math.PI * 2) + distCoils * angle);
@@ -154,55 +163,55 @@ WordcloudJS.core.prototype = {
                 y: y
             });
         }
+
         return points;
     },
     getRectSpiralPath: function (distPoints, distCoils, maxRadius, startX, startY) {
-        var points = [
-            {
+        var points = [{
                 x: startX,
                 y: startY
-            }
-        ];
+            }];
+
         var x = startX;
         var y = startY;
-        var direction = 'left';
+        var direction = "left";
         var width = distCoils;
         var step = 0;
 
         while (Math.abs(x - startX) < maxRadius) {
             switch (direction) {
-                case 'left':
+                case "left":
                     x = x - 1;
                     step++;
                     if (step > width) {
                         step = 0;
                         width += 1 + distCoils;
-                        direction = 'bottom';
+                        direction = "bottom";
                     }
                     break;
-                case 'bottom':
+                case "bottom":
                     y = y + 1;
                     step++;
                     if (step === width) {
                         step = 0;
-                        direction = 'right';
+                        direction = "right";
                     }
                     break;
-                case 'right':
+                case "right":
                     x = x + 1;
                     step++;
                     if (step > width) {
                         step = 0;
                         width += 1 + distCoils;
-                        direction = 'top';
+                        direction = "top";
                     }
                     break;
-                case 'top':
+                case "top":
                     y = y - 1;
                     step++;
                     if (step === width) {
                         step = 0;
-                        direction = 'left';
+                        direction = "left";
                     }
                     break;
             }
@@ -297,13 +306,13 @@ WordcloudJS.scene.prototype = {
         var positionShiftX;
         var positionShiftY;
 
-        if (position === 'center') {
+        if (position === "center") {
             positionShiftX = -word.width / 2;
             positionShiftY = -word.height / 2;
-        } else if (position === 'left') {
+        } else if (position === "left") {
             positionShiftX = 0;
             positionShiftY = 0;
-        } else if (position === 'right') {
+        } else if (position === "right") {
             positionShiftX = -word.width;
             positionShiftY = -word.height;
         } else {
@@ -316,6 +325,10 @@ WordcloudJS.scene.prototype = {
             collision = false;
             // Pathpunkt setzen
             word.move(this.path[j].x + positionShiftX, this.path[j].y + positionShiftY);
+            // Kollision prüfen
+//            for (var k = 0; k < wordsLength && !collision; k++) {
+//                collision = this.boundingVolumeHierarchyCollision(word.boundingVolume, this.words[k].boundingVolume, minMargin);
+//            }
 
             if (cachedWord) {
                 collision = this.boundingVolumeHierarchyCollision(word.boundingVolume, this.words[cachedWordPosition].boundingVolume, minMargin);
@@ -363,50 +376,44 @@ WordcloudJS.scene.prototype = {
         width = maxX - minX;
         height = maxY - minY;
 
-        svgScene.setAttribute('version', '1.1');
-        svgScene.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-        svgScene.setAttribute('id', id);
-        svgScene.setAttribute('width', width);
-        svgScene.setAttribute('height', height);
+        svgScene.setAttribute("version", "1.1");
+        svgScene.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        svgScene.setAttribute("id", id);
+        svgScene.setAttribute("width", width);
+        svgScene.setAttribute("height", height);
 
         // Wörter in Svg konvertieren
         // Normalisieren: minX und minY auf Ursprung 0/0 schieben
         for (var i = 0; i < this.words.length; i++) {
-
             // Position berechnen
             x = (minX * (-1)) + this.words[i].position.x + this.words[i].anchorOffsetX;
             y = (minY * (-1)) + this.words[i].position.y + this.words[i].anchorOffsetY;
-
             // Rotationspunkt berechnen
             rotationAnchorX = x + this.words[i].rotationAnchorX;
             rotationAnchorY = y + this.words[i].rotationAnchorY;
             svgText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-
             // Attribute setzen
-            svgText.setAttribute('version', '1.1');
-            svgText.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-
-            if (this.words[i].id != '') {
-                svgText.setAttribute('id', this.words[i].id);
+            svgText.setAttribute("version", "1.1");
+            svgText.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+            if (this.words[i].id != "") {
+                svgText.setAttribute("id", this.words[i].id);
             }
-
-            if (this.words[i].class != '') {
-                svgText.setAttribute('class', this.words[i].class);
+            if (this.words[i].class != "") {
+                svgText.setAttribute("class", this.words[i].class);
             }
-
-            svgText.setAttribute('alignment-baseline', 'text-before-edge');
-            svgText.setAttribute('text-anchor', 'start');
-            svgText.setAttribute('x', x);
-            svgText.setAttribute('y', y);
-            svgText.setAttribute('font-family', this.words[i].style.fontFamily);
-            svgText.setAttribute('font-size', this.words[i].style.fontSize);
-            svgText.setAttribute('font-variant', this.words[i].style.fontVariant);
-            svgText.setAttribute('font-weight', this.words[i].style.fontWeight);
-            svgText.setAttribute('font-style', this.words[i].style.fontStyle);
-            svgText.setAttribute('fill', this.words[i].style.fontColor);
-
+            svgText.setAttribute("alignment-baseline", "text-before-edge");
+            svgText.setAttribute("text-anchor", "start");
+            svgText.setAttribute("x", x);
+            svgText.setAttribute("y", y);
+            svgText.setAttribute("font-family", this.words[i].style.fontFamily);
+            svgText.setAttribute("font-size", this.words[i].style.fontSize);
+            svgText.setAttribute("font-variant", this.words[i].style.fontVariant);
+            svgText.setAttribute("font-weight", this.words[i].style.fontWeight);
+            svgText.setAttribute("font-style", this.words[i].style.fontStyle);
+//            svgText.setAttribute("fill-opacity", this.words[i].style.fontAlpha);
+            svgText.setAttribute("fill", this.words[i].style.fontColor);
             if (this.words[i].angle != 0) {
-                svgText.setAttribute('transform', `rotate(${this.words[i].angle}, ${ rotationAnchorX}, ${rotationAnchorY})`);
+                svgText.setAttribute("transform", "rotate(" + this.words[i].angle + "," + rotationAnchorX + "," + rotationAnchorY + ")");
             }
             svgText.textContent = this.words[i].text;
             svgScene.appendChild(svgText);
@@ -445,38 +452,34 @@ WordcloudJS.scene.prototype = {
         width = maxX - minX;
         height = maxY - minY;
 
-        canvas.setAttribute('id', id);
-        canvas.setAttribute('style', 'border:1px solid black;');
+        canvas.setAttribute("id", id);
+        canvas.setAttribute("style", "border:1px solid black;");
         canvas.width = width;
         canvas.height = height;
 
         // Wörter in Canvas zeichnen
         // Normalisieren: minX und minY auf Ursprung 0/0 schieben
         for (var i = 0; i < this.words.length; i++) {
-            
             // Position berechnen
             x = (minX * (-1)) + this.words[i].position.x + this.words[i].anchorOffsetX;
             y = (minY * (-1)) + this.words[i].position.y + this.words[i].anchorOffsetY;
-
             // Rotationspunkt berechnen
             rotationAnchorX = x + this.words[i].rotationAnchorX;
             rotationAnchorY = y + this.words[i].rotationAnchorY;
 
-            font = this.words[i].style.fontStyle + ' ';
-            font += this.words[i].style.fontVariant + ' ';
-            font += this.words[i].style.fontWeight + ' ';
-            font += this.words[i].style.fontSize + 'px ';
+            font = this.words[i].style.fontStyle + " ";
+            font += this.words[i].style.fontVariant + " ";
+            font += this.words[i].style.fontWeight + " ";
+            font += this.words[i].style.fontSize + "px ";
             font += this.words[i].style.fontFamily;
             ctx.font = font;
-            ctx.textBaseline = 'top';
-            ctx.textAlign = 'left';
-
+            ctx.textBaseline = "top";
+            ctx.textAlign = "left";
             if (this.words[i].angle !== 0) {
                 ctx.translate(rotationAnchorX, rotationAnchorY);
                 ctx.rotate(this.words[i].angle * Math.PI / 180);
                 ctx.translate(-rotationAnchorX, -rotationAnchorY);
             }
-            
             ctx.fillStyle = this.words[i].style.fontColor;
             ctx.fillText(this.words[i].text, x, y);
             if (this.words[i].angle !== 0) {
@@ -573,28 +576,28 @@ WordcloudJS.core.prototype.rgb2hex = function(rgb) {
  * <br>class: {string},
  * <br>boundingVolumeMinSize: {number},
  * <br>style: {
- * <br>&emsp;    'fontStyle': {string},
- * <br>&emsp;     'fontVariant': {string},
- * <br>&emsp;    'fontWeight': {string},
- * <br>&emsp;     'fontSize': {number},
- * <br>&emsp;     'fontFamily': {string},
- * <br>&emsp;     'fontColor': {string}
+ * <br>&emsp;    "fontStyle": {string},
+ * <br>&emsp;     "fontVariant": {string},
+ * <br>&emsp;    "fontWeight": {string},
+ * <br>&emsp;     "fontSize": {number},
+ * <br>&emsp;     "fontFamily": {string},
+ * <br>&emsp;     "fontColor": {string}
  * <br>}
  * @returns {WordcloudJS.word}
  */
 WordcloudJS.word = function (options) {
-    this.text = 'Hello';
-    this.id = '';
-    this.class = '';
+    this.text = "Hello";
+    this.id = "";
+    this.class = "";
     this.boundingVolumeMinSize = 4;
     this.style = {
-        'fontStyle': 'normal',
-        'fontVariant': 'normal',
-        'fontWeight': 'normal',
-        'fontSize': 12,
-        'fontFamily': 'Arial',
-        'fontColor': '#000000',
-        'fontAlpha': 1
+        "fontStyle": "normal",
+        "fontVariant": "normal",
+        "fontWeight": "normal",
+        "fontSize": 12,
+        "fontFamily": "Arial",
+        "fontColor": "#000000",
+        "fontAlpha": 1
     };
     this.position = {
         x: 0,
@@ -692,24 +695,23 @@ WordcloudJS.word = function (options) {
     // zu ermitteln. Die Größen sind allerdings nicht exakt. Daher muss eine genauere 
     // Berechnung der Größen mittels Canvas stattfinden
     div = document.createElement('div');
-    div.id = 'wordDimensionDiv1';
-    style = 'display: inline-block; ';
-    style += 'position: absolute; ';
-    style += 'visibility: hidden; ';
-    style += 'top: 0; ';
-    style += 'left: 0; ';
-    style += 'white-space: nowrap; ';
-    style += `-moz-transform: rotate(${this.angle}deg); `;
-    style += `-ms-transform: rotate(${this.angle}deg); `;
-    style += `-ms-transform: rotate(${this.angle}deg); `;
-    style += `-o-transform: rotate(${this.angle}deg); `;
-    style += `-webkit-transform: rotate(${this.angle}deg); `;
-    style += `font-size: ${this.style.fontSize};`;
-    style += `font-weight: ${this.style.fontWeight};`;
-    style += `font-family: ${this.style.fontFamily};`;
-    style += `font-variant: ${this.style.fontVariant};`;
-    style += `font-style: ${this.style.fontStyle}; `;
-    div.setAttribute('style', style);
+    div.id = "wordDimensionDiv1";
+    style = "display: inline-block; ";
+    style += "position: absolute; ";
+    style += "visibility: hidden; ";
+    style += "top: 0; ";
+    style += "left: 0; ";
+    style += "white-space: nowrap; ";
+    style += "-moz-transform: rotate(" + this.angle + "deg); ";
+    style += "-ms-transform: rotate(" + this.angle + "deg);";
+    style += "-o-transform: rotate(" + this.angle + "deg);";
+    style += "-webkit-transform: rotate(" + this.angle + "deg);";
+    style += "font-size: " + this.style.fontSize + "px; ";
+    style += "font-weight: " + this.style.fontWeight + "; ";
+    style += "font-family: " + this.style.fontFamily + "; ";
+    style += "font-variant: " + this.style.fontVariant + "; ";
+    style += "font-style: " + this.style.fontStyle + "; ";
+    div.setAttribute("style", style);
     div.textContent = this.text;
     document.body.appendChild(div);
 
@@ -717,11 +719,11 @@ WordcloudJS.word = function (options) {
     // wenn dieser weiterhin als achsenausgerichtete Box betrachtet wird. 
     // Diese Veränderung der Größen muss berechnet werden und bei dem Setzen 
     // der Größe des Canvas berücksichtigt werden
-    divBounding = document.getElementById('wordDimensionDiv1').getBoundingClientRect();
+    divBounding = document.getElementById("wordDimensionDiv1").getBoundingClientRect();
     divOffsetWidth = Math.ceil(divBounding.x);
     divOffsetHeight = Math.ceil(divBounding.y);
-    divWidth = document.getElementById('wordDimensionDiv1').offsetWidth;
-    divHeight = document.getElementById('wordDimensionDiv1').offsetHeight;
+    divWidth = document.getElementById("wordDimensionDiv1").offsetWidth;
+    divHeight = document.getElementById("wordDimensionDiv1").offsetHeight;
 
     document.body.removeChild(div);
 
@@ -743,14 +745,14 @@ WordcloudJS.word = function (options) {
     ctx.canvas.height = canvasHeight;
 
     // Text zeichnen mit Berücksichtigung des Paddings
-    font = this.style.fontStyle + ' ';
-    font += this.style.fontVariant + ' ';
-    font += this.style.fontWeight + ' ';
-    font += this.style.fontSize + 'px ';
+    font = this.style.fontStyle + " ";
+    font += this.style.fontVariant + " ";
+    font += this.style.fontWeight + " ";
+    font += this.style.fontSize + "px ";
     font += this.style.fontFamily;
     ctx.font = font;
-    ctx.textBaseline = 'top';
-    ctx.textAlign = 'left';
+    ctx.textBaseline = "top";
+    ctx.textAlign = "left";
     ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
     ctx.rotate(this.angle * Math.PI / 180);
     ctx.translate(-ctx.canvas.width / 2, -ctx.canvas.height / 2);
@@ -899,7 +901,7 @@ WordcloudJS.word.prototype = {
         ctx.canvas.height = this.height;
         ctx.putImageData(this.imageData, 0, 0);
         if (drawBoundingVolume != null) {
-            var color = '#FF0000';
+            var color = "#FF0000";
             var fill = false;
             var drawOption = 'filled';
 
@@ -1017,11 +1019,11 @@ WordcloudJS.boundingVolume.prototype = {
     },
     drawBoundingVolume: function (ctx, color, fill, drawOption) {
         var draw = false;
-        if (drawOption === 'all' && !this.hasChildren()) {
+        if (drawOption === "all" && !this.hasChildren()) {
             draw = true;
-        } else if (drawOption === 'empty' && !this.hasChildren() && !this.isFilled) {
+        } else if (drawOption === "empty" && !this.hasChildren() && !this.isFilled) {
             draw = true;
-        } else if (drawOption === 'filled' && !this.hasChildren() && this.isFilled) {
+        } else if (drawOption === "filled" && !this.hasChildren() && this.isFilled) {
             draw = true;
         }
 
@@ -1041,7 +1043,7 @@ WordcloudJS.testPerformancePixelData32And8 = function (canvasWidth, canvasHeight
         for (var x = 0; x < canvasWidth; x++) {
             if (data[(y * canvasWidth + x) + 4] !== 0) {
                 var t1 = performance.now();
-                console.log('getYMax8 Ausführzeit: ' + (t1 - t0) + ' milliseconds');
+                console.log("getYMax8 Ausführzeit: " + (t1 - t0) + " milliseconds");
                 return y;
             }
         }
@@ -1049,8 +1051,8 @@ WordcloudJS.testPerformancePixelData32And8 = function (canvasWidth, canvasHeight
 };
 
 WordcloudJS.stopwords = {
-    'german': ['ab', 'aber', 'ach', 'acht', 'achte', 'achten', 'achter', 'achtes', 'ag', 'alle', 'allein', 'allem', 'allen', 'aller', 'allerdings', 'alles', 'allgemeinen', 'als', 'also', 'am', 'an', 'ander', 'andere', 'anderem', 'anderen', 'anderer', 'anderes', 'anderm', 'andern', 'anderr', 'anders', 'au', 'auch', 'auf', 'aus', 'ausser', 'ausserdem', 'außer', 'außerdem', 'bald', 'bei', 'beide', 'beiden', 'beim', 'beispiel', 'bekannt', 'bereits', 'besonders', 'besser', 'besten', 'bin', 'bis', 'bisher', 'bist', 'd.h', 'da', 'dabei', 'dadurch', 'dafür', 'dagegen', 'daher', 'dahin', 'dahinter', 'damals', 'damit', 'danach', 'daneben', 'dank', 'dann', 'daran', 'darauf', 'daraus', 'darf', 'darfst', 'darin', 'darum', 'darunter', 'darüber', 'das', 'dasein', 'daselbst', 'dass', 'dasselbe', 'davon', 'davor', 'dazu', 'dazwischen', 'daß', 'dein', 'deine', 'deinem', 'deinen', 'deiner', 'deines', 'dem', 'dementsprechend', 'demgegenüber', 'demgemäss', 'demgemäß', 'demselben', 'demzufolge', 'den', 'denen', 'denn', 'denselben', 'der', 'deren', 'derer', 'derjenige', 'derjenigen', 'dermassen', 'dermaßen', 'derselbe', 'derselben', 'des', 'deshalb', 'desselben', 'dessen', 'deswegen', 'dich', 'die', 'diejenige', 'diejenigen', 'dies', 'diese', 'dieselbe', 'dieselben', 'diesem', 'diesen', 'dieser', 'dieses', 'dir', 'doch', 'dort', 'drei', 'drin', 'dritte', 'dritten', 'dritter', 'drittes', 'du', 'durch', 'durchaus', 'durfte', 'durften', 'dürfen', 'dürft', 'eben', 'ebenso', 'ehrlich', 'ei', 'ei,', 'eigen', 'eigene', 'eigenen', 'eigener', 'eigenes', 'ein', 'einander', 'eine', 'einem', 'einen', 'einer', 'eines', 'einig', 'einige', 'einigem', 'einigen', 'einiger', 'einiges', 'einmal', 'eins', 'elf', 'en', 'ende', 'endlich', 'entweder', 'er', 'ernst', 'erst', 'erste', 'ersten', 'erster', 'erstes', 'es', 'etwa', 'etwas', 'euch', 'euer', 'eure', 'eurem', 'euren', 'eurer', 'eures', 'folgende', 'früher', 'fünf', 'fünfte', 'fünften', 'fünfter', 'fünftes', 'für', 'gab', 'ganz', 'ganze', 'ganzen', 'ganzer', 'ganzes', 'gar', 'gedurft', 'gegen', 'gegenüber', 'gehabt', 'gehen', 'geht', 'gekannt', 'gekonnt', 'gemacht', 'gemocht', 'gemusst', 'genug', 'gerade', 'gern', 'gesagt', 'geschweige', 'gewesen', 'gewollt', 'geworden', 'gibt', 'ging', 'gleich', 'gott', 'gross', 'grosse', 'grossen', 'grosser', 'grosses', 'groß', 'große', 'großen', 'großer', 'großes', 'gut', 'gute', 'guter', 'gutes', 'hab', 'habe', 'haben', 'habt', 'hast', 'hat', 'hatte', 'hatten', 'hattest', 'hattet', 'heisst', 'her', 'heute', 'hier', 'hin', 'hinter', 'hoch', 'hätte', 'hätten', 'i', 'ich', 'ihm', 'ihn', 'ihnen', 'ihr', 'ihre', 'ihrem', 'ihren', 'ihrer', 'ihres', 'im', 'immer', 'in', 'indem', 'infolgedessen', 'ins', 'irgend', 'ist', 'ja', 'jahr', 'jahre', 'jahren', 'je', 'jede', 'jedem', 'jeden', 'jeder', 'jedermann', 'jedermanns', 'jedes', 'jedoch', 'jemand', 'jemandem', 'jemanden', 'jene', 'jenem', 'jenen', 'jener', 'jenes', 'jetzt', 'kam', 'kann', 'kannst', 'kaum', 'kein', 'keine', 'keinem', 'keinen', 'keiner', 'keines', 'kleine', 'kleinen', 'kleiner', 'kleines', 'kommen', 'kommt', 'konnte', 'konnten', 'kurz', 'können', 'könnt', 'könnte', 'lang', 'lange', 'leicht', 'leide', 'lieber', 'los', 'machen', 'macht', 'machte', 'mag', 'magst', 'mahn', 'mal', 'man', 'manche', 'manchem', 'manchen', 'mancher', 'manches', 'mann', 'mehr', 'mein', 'meine', 'meinem', 'meinen', 'meiner', 'meines', 'mensch', 'menschen', 'mich', 'mir', 'mit', 'mittel', 'mochte', 'mochten', 'morgen', 'muss', 'musst', 'musste', 'mussten', 'muß', 'mußt', 'möchte', 'mögen', 'möglich', 'mögt', 'müssen', 'müsst', 'müßt', 'na', 'nach', 'nachdem', 'nahm', 'natürlich', 'neben', 'nein', 'neue', 'neuen', 'neun', 'neunte', 'neunten', 'neunter', 'neuntes', 'nicht', 'nichts', 'nie', 'niemand', 'niemandem', 'niemanden', 'noch', 'nun', 'nur', 'ob', 'oben', 'oder', 'offen', 'oft', 'ohne', 'ordnung', 'per', 'recht', 'rechte', 'rechten', 'rechter', 'rechtes', 'richtig', 'rund', 'sa', 'sache', 'sagt', 'sagte', 'sah', 'satt', 'schlecht', 'schluss', 'schon', 'sechs', 'sechste', 'sechsten', 'sechster', 'sechstes', 'sehr', 'sei', 'seid', 'seien', 'sein', 'seine', 'seinem', 'seinen', 'seiner', 'seines', 'seit', 'seitdem', 'selbst', 'sich', 'sie', 'sieben', 'siebente', 'siebenten', 'siebenter', 'siebentes', 'sind', 'so', 'solang', 'solche', 'solchem', 'solchen', 'solcher', 'solches', 'soll', 'sollen', 'sollst', 'sollt', 'sollte', 'sollten', 'sondern', 'sonst', 'soweit', 'sowie', 'später', 'startseite', 'statt', 'steht', 'suche', 'tag', 'tage', 'tagen', 'tat', 'teil', 'tel', 'tritt', 'trotzdem', 'tun', 'uhr', 'um', 'und', 'und?', 'uns', 'unse', 'unsem', 'unsen', 'unser', 'unsere', 'unserer', 'unses', 'unter', 'vergangenen', 'viel', 'viele', 'vielem', 'vielen', 'vielleicht', 'vier', 'vierte', 'vierten', 'vierter', 'viertes', 'vom', 'von', 'vor', 'wahr?', 'wann', 'war', 'waren', 'warst', 'wart', 'warum', 'was', 'weg', 'wegen', 'weil', 'weit', 'weiter', 'weitere', 'weiteren', 'weiteres', 'welche', 'welchem', 'welchen', 'welcher', 'welches', 'wem', 'wen', 'wenig', 'wenige', 'weniger', 'weniges', 'wenigstens', 'wenn', 'wer', 'werde', 'werden', 'werdet', 'weshalb', 'wessen', 'wie', 'wieder', 'wieso', 'will', 'willst', 'wir', 'wird', 'wirklich', 'wirst', 'wissen', 'wo', 'woher', 'wohin', 'wohl', 'wollen', 'wollt', 'wollte', 'wollten', 'worden', 'wurde', 'wurden', 'während', 'währenddem', 'währenddessen', 'wäre', 'würde', 'würden', 'z.b', 'zehn', 'zehnte', 'zehnten', 'zehnter', 'zehntes', 'zeit', 'zu', 'zuerst', 'zugleich', 'zum', 'zunächst', 'zur', 'zurück', 'zusammen', 'zwanzig', 'zwar', 'zwei', 'zweite', 'zweiten', 'zweiter', 'zweites', 'zwischen', 'zwölf', 'über', 'überhaupt', 'übrigens'],
-    'english': [
+    "german": ["ab", "aber", "ach", "acht", "achte", "achten", "achter", "achtes", "ag", "alle", "allein", "allem", "allen", "aller", "allerdings", "alles", "allgemeinen", "als", "also", "am", "an", "ander", "andere", "anderem", "anderen", "anderer", "anderes", "anderm", "andern", "anderr", "anders", "au", "auch", "auf", "aus", "ausser", "ausserdem", "außer", "außerdem", "bald", "bei", "beide", "beiden", "beim", "beispiel", "bekannt", "bereits", "besonders", "besser", "besten", "bin", "bis", "bisher", "bist", "d.h", "da", "dabei", "dadurch", "dafür", "dagegen", "daher", "dahin", "dahinter", "damals", "damit", "danach", "daneben", "dank", "dann", "daran", "darauf", "daraus", "darf", "darfst", "darin", "darum", "darunter", "darüber", "das", "dasein", "daselbst", "dass", "dasselbe", "davon", "davor", "dazu", "dazwischen", "daß", "dein", "deine", "deinem", "deinen", "deiner", "deines", "dem", "dementsprechend", "demgegenüber", "demgemäss", "demgemäß", "demselben", "demzufolge", "den", "denen", "denn", "denselben", "der", "deren", "derer", "derjenige", "derjenigen", "dermassen", "dermaßen", "derselbe", "derselben", "des", "deshalb", "desselben", "dessen", "deswegen", "dich", "die", "diejenige", "diejenigen", "dies", "diese", "dieselbe", "dieselben", "diesem", "diesen", "dieser", "dieses", "dir", "doch", "dort", "drei", "drin", "dritte", "dritten", "dritter", "drittes", "du", "durch", "durchaus", "durfte", "durften", "dürfen", "dürft", "eben", "ebenso", "ehrlich", "ei", "ei,", "eigen", "eigene", "eigenen", "eigener", "eigenes", "ein", "einander", "eine", "einem", "einen", "einer", "eines", "einig", "einige", "einigem", "einigen", "einiger", "einiges", "einmal", "eins", "elf", "en", "ende", "endlich", "entweder", "er", "ernst", "erst", "erste", "ersten", "erster", "erstes", "es", "etwa", "etwas", "euch", "euer", "eure", "eurem", "euren", "eurer", "eures", "folgende", "früher", "fünf", "fünfte", "fünften", "fünfter", "fünftes", "für", "gab", "ganz", "ganze", "ganzen", "ganzer", "ganzes", "gar", "gedurft", "gegen", "gegenüber", "gehabt", "gehen", "geht", "gekannt", "gekonnt", "gemacht", "gemocht", "gemusst", "genug", "gerade", "gern", "gesagt", "geschweige", "gewesen", "gewollt", "geworden", "gibt", "ging", "gleich", "gott", "gross", "grosse", "grossen", "grosser", "grosses", "groß", "große", "großen", "großer", "großes", "gut", "gute", "guter", "gutes", "hab", "habe", "haben", "habt", "hast", "hat", "hatte", "hatten", "hattest", "hattet", "heisst", "her", "heute", "hier", "hin", "hinter", "hoch", "hätte", "hätten", "i", "ich", "ihm", "ihn", "ihnen", "ihr", "ihre", "ihrem", "ihren", "ihrer", "ihres", "im", "immer", "in", "indem", "infolgedessen", "ins", "irgend", "ist", "ja", "jahr", "jahre", "jahren", "je", "jede", "jedem", "jeden", "jeder", "jedermann", "jedermanns", "jedes", "jedoch", "jemand", "jemandem", "jemanden", "jene", "jenem", "jenen", "jener", "jenes", "jetzt", "kam", "kann", "kannst", "kaum", "kein", "keine", "keinem", "keinen", "keiner", "keines", "kleine", "kleinen", "kleiner", "kleines", "kommen", "kommt", "konnte", "konnten", "kurz", "können", "könnt", "könnte", "lang", "lange", "leicht", "leide", "lieber", "los", "machen", "macht", "machte", "mag", "magst", "mahn", "mal", "man", "manche", "manchem", "manchen", "mancher", "manches", "mann", "mehr", "mein", "meine", "meinem", "meinen", "meiner", "meines", "mensch", "menschen", "mich", "mir", "mit", "mittel", "mochte", "mochten", "morgen", "muss", "musst", "musste", "mussten", "muß", "mußt", "möchte", "mögen", "möglich", "mögt", "müssen", "müsst", "müßt", "na", "nach", "nachdem", "nahm", "natürlich", "neben", "nein", "neue", "neuen", "neun", "neunte", "neunten", "neunter", "neuntes", "nicht", "nichts", "nie", "niemand", "niemandem", "niemanden", "noch", "nun", "nur", "ob", "oben", "oder", "offen", "oft", "ohne", "ordnung", "per", "recht", "rechte", "rechten", "rechter", "rechtes", "richtig", "rund", "sa", "sache", "sagt", "sagte", "sah", "satt", "schlecht", "schluss", "schon", "sechs", "sechste", "sechsten", "sechster", "sechstes", "sehr", "sei", "seid", "seien", "sein", "seine", "seinem", "seinen", "seiner", "seines", "seit", "seitdem", "selbst", "sich", "sie", "sieben", "siebente", "siebenten", "siebenter", "siebentes", "sind", "so", "solang", "solche", "solchem", "solchen", "solcher", "solches", "soll", "sollen", "sollst", "sollt", "sollte", "sollten", "sondern", "sonst", "soweit", "sowie", "später", "startseite", "statt", "steht", "suche", "tag", "tage", "tagen", "tat", "teil", "tel", "tritt", "trotzdem", "tun", "uhr", "um", "und", "und?", "uns", "unse", "unsem", "unsen", "unser", "unsere", "unserer", "unses", "unter", "vergangenen", "viel", "viele", "vielem", "vielen", "vielleicht", "vier", "vierte", "vierten", "vierter", "viertes", "vom", "von", "vor", "wahr?", "wann", "war", "waren", "warst", "wart", "warum", "was", "weg", "wegen", "weil", "weit", "weiter", "weitere", "weiteren", "weiteres", "welche", "welchem", "welchen", "welcher", "welches", "wem", "wen", "wenig", "wenige", "weniger", "weniges", "wenigstens", "wenn", "wer", "werde", "werden", "werdet", "weshalb", "wessen", "wie", "wieder", "wieso", "will", "willst", "wir", "wird", "wirklich", "wirst", "wissen", "wo", "woher", "wohin", "wohl", "wollen", "wollt", "wollte", "wollten", "worden", "wurde", "wurden", "während", "währenddem", "währenddessen", "wäre", "würde", "würden", "z.b", "zehn", "zehnte", "zehnten", "zehnter", "zehntes", "zeit", "zu", "zuerst", "zugleich", "zum", "zunächst", "zur", "zurück", "zusammen", "zwanzig", "zwar", "zwei", "zweite", "zweiten", "zweiter", "zweites", "zwischen", "zwölf", "über", "überhaupt", "übrigens"],
+    "english": [
         'a',
         'able',
         'about',
