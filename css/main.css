@@ -79,7 +79,7 @@ body {
 
 /* scene styles */
 #scene {
-    height: 400px;
+    height: 100vh;
     background-color: #2B2B2B;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -87,8 +87,8 @@ body {
 
     #svgWrapper {
         display: flex;
-        width: 400px;
-        height: 400px;
+        width: 100vw;
+        height: 100vh;
         margin: 0 auto;
         flex-flow: column;
     }
